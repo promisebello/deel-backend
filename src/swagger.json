@@ -1,0 +1,210 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Deel",
+    "description": "Deel backend task",
+    "version": "v1"
+  },
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/contracts": {
+      "get": {
+        "summary": "Get contracts that are still active",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "profile_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/contracts/{id}": {
+      "get": {
+        "summary": "Get contract by id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "profile_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/jobs/unpaid": {
+      "get": {
+        "summary": "Get unpaid jobs",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "profile_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/jobs/{id}/pay": {
+      "post": {
+        "summary": "Payment of jobs by id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "profile_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "409": {
+            "description": "Job has already been paid"
+          },
+          "404": {
+            "description": "Job could not be found"
+          },
+          "400": {
+            "description": "Insufficient funds"
+          }
+        }
+      }
+    },
+    "/balances/deposit/{userId}": {
+      "post": {
+        "summary": "Deposit client balance",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "header",
+            "name": "profile_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "amount",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": "number"
+                }
+              }
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "The amount to deposit was greater than the deposit limit"
+          }
+        }
+      }
+    },
+    "/admin/best-clients": {
+      "get": {
+        "summary": "Admin: best clients",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "start",
+            "type": "string",
+            "required": true,
+            "default": "2020-08-08T01:01:00.412Z"
+          },
+          {
+            "in": "query",
+            "name": "end",
+            "type": "string",
+            "required": true,
+            "default": "2022-04-25T18:14:18.412Z"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "required": false,
+            "default": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/best-profession": {
+      "get": {
+        "summary": "Admin: best profession",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "start",
+            "type": "string",
+            "required": true,
+            "default": "2022-04-25T01:01:00.412Z"
+          },
+          {
+            "in": "query",
+            "name": "end",
+            "type": "string",
+            "required": true,
+            "default": "2022-04-25T18:14:18.412Z"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+    
+    }
+  }
+
